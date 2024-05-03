@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Proyecto_Integrador</string>
+    <string name="precio_uyu">Precio(UYU):</string>
+    <string name="name_display">name display</string>
+    <string name="nombre">Nombre:</string>
+    <string name="precio">Precio</string>
+    <string name="nombre_del_producto">Nombre del producto</string>
+    <string name="precio_uyu_">Precio(UYU):</string>
+    <string name="precio_uy">Precio(UYU):</string>
+    <string name="_precio_uy">Precio(UY):</string>
+    <string name="_nombre">Nombre:</string>
 </resources>
