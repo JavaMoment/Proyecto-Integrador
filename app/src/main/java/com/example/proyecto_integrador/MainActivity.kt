@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,15 +32,24 @@ class MainActivity : AppCompatActivity() {
                 .setTitle("Agregar Producto")  // le ponemos un título al diálogo
                 .setView(dialogView)  // acá le decimos que use el layout que inflamos antes para el diálogo
                 .setPositiveButton("Agregar") { dialog, which ->  // un botón para agregar el producto
-                    val name = productNameEditText.text.toString()  // tomamos el nombre del producto del campo de texto
+                    val name = productNameEditText.text.toString() // tomamos el nombre del producto del campo de texto
                     val price = productPriceEditText.text.toString().toDoubleOrNull() ?: 0.0  // tomamos el precio y lo convertimos a número, si hay lío lo dejamos en 0
-                    val newProduct = Product(name, price)  // creamos un nuevo producto con el nombre y precio
-                    productsList.add(newProduct)  // añadimos el producto a la lista
-                    productsAdapter.notifyItemInserted(productsList.size - 1)  // avisamos al adaptador que agregamos algo nuevo pata que se actualice
+                    if(price == 0.0 || name == ""){
+                        productPriceEditText.setText("")
+                        Toast.makeText(this, "Datos incorrectos", Toast.LENGTH_LONG).show()
+                    }else{
+                        val newProduct = Product(name, price)  // creamos un nuevo producto con el nombre y precio
+                        println(newProduct.name)
+                        productsList.add(newProduct)  // añadimos el producto a la lista
+                        productsAdapter.notifyItemInserted(productsList.size - 1)  // avisamos al adaptador que agregamos algo nuevo pata que se actualice
+                    }
+
                 }
                 .setNegativeButton("Cancelar", null)  // un botón por si se arrepienten y no quieren agregar nada
                 .show()  // mostramos el diálogo
         }
     }
+
+
 
 }

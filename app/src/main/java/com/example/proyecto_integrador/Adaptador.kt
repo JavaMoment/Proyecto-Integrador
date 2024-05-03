@@ -25,7 +25,7 @@ class Adaptador(private val products: List<Product>) : RecyclerView.Adapter<Adap
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         val product = products[position]  // agarramos el producto que corresponde a la posición actual
         holder.productName.text = product.name  // seteamos el nombre del producto en el textview
-        holder.productPrice.text = "${product.price}"  // seteamos el precio del producto en el textview
+        holder.productPrice.text = "$${product.price}"  // seteamos el precio del producto en el textview
     }
 
     // este método devuelve la cantidad de ítems en la lista
