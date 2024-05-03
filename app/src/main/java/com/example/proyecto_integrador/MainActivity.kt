@@ -1,7 +1,5 @@
 package com.example.proyecto_integrador
 
-import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
@@ -35,10 +33,19 @@ class MainActivity : AppCompatActivity(), Adaptador.RecyclerViewEvent {
                 .setTitle("Agregar Producto")  // le ponemos un título al diálogo
                 .setView(dialogView)  // acá le decimos que use el layout que inflamos antes para el diálogo
                 .setPositiveButton("Agregar") { dialog, which ->  // un botón para agregar el producto
-                    val name = productNameEditText.text.toString()  // tomamos el nombre del producto del campo de texto
+                    val name = productNameEditText.text.toString() // tomamos el nombre del producto del campo de texto
                     val price = productPriceEditText.text.toString().toDoubleOrNull() ?: 0.0  // tomamos el precio y lo convertimos a número, si hay lío lo dejamos en 0
-                    val newProduct = Product(name, price)  // creamos un nuevo producto con el nombre y precio
-                    if(productsList.firstOrNull { it.name.lowercase() == name.lowercase() } == null) { // si el producto ya existe no agregarlo de nuevo
+                    if(productsList.firstOrNull { it.name.lowercase() == name.lowercase() } != null) { // si el producto ya existe no agregarlo de nuevo
+                        Toast.makeText(
+                            this,
+                            "El producto ya se encuentra ingresado.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else if(price == 0.0 || name == ""){
+                        productPriceEditText.setText("")
+                        Toast.makeText(this, "Datos incorrectos", Toast.LENGTH_LONG).show()
+                    } else {
+                        val newProduct = Product(name, price)  // creamos un nuevo producto con el nombre y precio
                         productsList.add(newProduct)  // añadimos el producto a la lista
                         productsAdapter.notifyItemInserted(productsList.size - 1)  // avisamos al adaptador que agregamos algo nuevo pata que se actualice
                     }
